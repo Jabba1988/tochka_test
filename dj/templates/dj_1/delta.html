@@ -1,0 +1,41 @@
+{% extends "dj_1/_base.html" %}
+{% block title %}
+    {{ ticker }}
+{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>{{ ticker }} <small>company</small></h1>
+
+        <a class="btn btn-default btn-md" href="{% url  'index'%}" role="button"> Home
+            <span class="glyphicon glyphicon-home" ></span>
+        </a>
+        <a class="btn btn-default " href="{% url  'web:historical' ticker %}" role="button">Historical</a>
+        <a class="btn btn-default " href="{% url  'web:insider' ticker %}" role="button">Insider</a>
+        <a class="btn btn-default pull-right" href="api/delta?value={{value}}&type={{type}}" role="button">API page</a>
+
+
+
+
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+        <table class="table table-bordered">
+            <tr>
+                <th>Изменение</th>
+                <th>Дата начала</th>
+                <th>Дата конца</th>
+            </tr>
+            {% for date in row%}
+                {% if date.2 == 'UP' %}
+                    <tr class="success">
+                        <td>Рост</td>
+                {% else %}
+                    <tr class="danger">
+                        <td>Падение</td>
+                {% endif %}
+                        <td>{{ date.0 }}</td>
+                        <td>{{ date.1 }}</td>
+                    </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "dj_1/_base.html" %}
+{% block title %}
+    {{ ticker }}
+{% endblock %}
+{% block content %}
+    <div class="row row-centered">
+        <div class="page-header">
+            <h1>{{ ticker }} <small>company</small></h1>
+
+            <a class="btn btn-default btn-md" href="{% url  'index'%}" role="button"> Home
+                <span class="glyphicon glyphicon-home" ></span>
+            </a>
+            <a class="btn btn-default btn-md" href="{% url  'web:insider' ticker %}" role="button">Insider-Trades</a>
+            <a class="btn btn-default pull-right" href="{% url  'api:historical' ticker %}" role="button">API page</a>
+
+        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6" >
+                <p class="text-center">ANALITIC</p>
+                <form class="form-inline pull-left" action="{% url  'web:analytics' ticker %}" method="get">
+                    <div class="form-group">
+                        <label class="sr-only">Email</label>
+                        <input type="date" class="form-control" name="date_from" type="date" placeholder="Enter email">
+                        <label class="sr-only">Email</label>
+                        <input type="date" class="form-control" name="date_to" type="date" placeholder="Enter email">
+                    </div>
+                    <button type="submit" class="btn btn-default">Анализировать</button>
+                </form>
+            </div>
+            <div class="col-xs-6" >
+                <p class="text-center">DELTA</p>
+                <form class="form-inline pull-right" action="{% url  'web:delta' ticker %}" method="get">
+                    <div class="form-group">
+                        <label class="sr-only">Email</label>
+                        <input type="number" class="form-control" name="value" type="date" placeholder="value">
+                        <label class="sr-only">Email</label>
+                        <select name="type" class="form-control">
+                            <option>open</option>
+                            <option>high</option>
+                            <option>low</option>
+                            <option>close</option>
+                        </select>
+
+                    </div>
+                    <button type="submit" class="btn btn-default">Анализировать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close / Last</th>
+                <th>Volume</th>
+            </tr>
+
+            {% for record in ticker_historical %}
+            <tr>
+                <td>{{ record.date }}</td>
+                <td>{{ record.open }}</td>
+                <td>{{ record.high }}</td>
+                <td>{{ record.low }}</td>
+                <td>{{ record.close }}</td>
+                <td>{{ record.volume }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

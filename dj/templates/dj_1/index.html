@@ -1,0 +1,16 @@
+{% extends "dj_1/_base.html" %}
+
+{% block content %}
+    <div class="col-md-8 col-md-offset-2">
+        <div class="page-header">
+            <h1>all company</h1>
+        </div>
+        <div class="top-cover center-block">
+            <ul class="nav nav-pills">
+                {% for company in all_company %}
+                    <li role="presentation"><a href={{ company }} class="list-group-item">{{ company }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
